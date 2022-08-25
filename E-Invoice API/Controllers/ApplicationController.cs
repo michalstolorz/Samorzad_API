@@ -17,7 +17,9 @@ namespace E_Invoice_API.Controllers
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IUserContextProvider _userContextProvider;
 
-        public ApplicationController(IApplicationService applicationService, IDateTimeProvider dateTimeProvider, IUserContextProvider userContextProvider)
+        public ApplicationController(IApplicationService applicationService, 
+            IDateTimeProvider dateTimeProvider, 
+            IUserContextProvider userContextProvider)
         {
             _applicationService = applicationService;
             _dateTimeProvider = dateTimeProvider;
@@ -40,6 +42,7 @@ namespace E_Invoice_API.Controllers
         /// <summary>
         /// GetApplication
         /// </summary>
+        /// <param name="applicationId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getApplication/{applicationId}")]
@@ -63,6 +66,20 @@ namespace E_Invoice_API.Controllers
             var result = await _applicationService.GetApplications(request, cancellationToken);
 
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpDelete("deleteApplication/{applicationId}")]
+        public async Task<IActionResult> DeleteApplication(int applicationId, CancellationToken cancellationToken)
+        {
+            await _applicationService.DeleteApplication(applicationId, cancellationToken);
+
+            return Ok();
         }
     }
 }
