@@ -108,6 +108,12 @@ namespace E_Invoice_API.Core.Repositories
             return result.Entity;
         }
 
+        public virtual async Task Delete(TEntity entity, CancellationToken cancellationToken)
+        {
+            _context.Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
         private void DetachAll(bool detachAll)
         {
             if (detachAll)

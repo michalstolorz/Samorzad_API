@@ -23,5 +23,7 @@ namespace E_Invoice_API.Core.Exceptions
         public static string InvoiceStatusAlreadyExists => "invoice_status_already_exists";
         public static string MailSendingHasFailed => "mail_sending_has_failed";
         public static string ApplicationWithGivenIdNotFound => "application_with_given_user_id_not_found";
+        public static string ApplicationUserVoteWithGivenIdNotFound => "application_user_votes_with_given_user_id_not_found";
+        public static string ApplicationCommentWithGivenIdNotFound => "application_comment_with_given_user_id_not_found";
     }
 }

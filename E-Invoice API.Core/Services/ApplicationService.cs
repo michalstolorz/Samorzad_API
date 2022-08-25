@@ -5,6 +5,7 @@ using E_Invoice_API.Core.Helper;
 using E_Invoice_API.Core.Interfaces.Repositories;
 using E_Invoice_API.Core.Interfaces.Services;
 using E_Invoice_API.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,11 +49,15 @@ namespace E_Invoice_API.Core.Services
 
         public async Task<Application> GetApplication(int id, CancellationToken cancellationToken)
         {
-            var result = await _applicationRepository.GetByIdAsync(id, cancellationToken);
+            var result = await _applicationRepository.GetByIdAsync(id, cancellationToken, 
+                include: x => x
+                .Include(x => x.User)
+                .Include(x => x.ApplicationComments)
+                .Include(x => x.ApplicationUserVotes));
 
             if (result == null)
             {
-                throw new ServiceException(ErrorCodes.ApplicationWithGivenIdNotFound, $"Repair with provided id doesn't exist");
+                throw new ServiceException(ErrorCodes.ApplicationWithGivenIdNotFound, $"Application with provided id doesn't exist");
             }
 
             return result;
@@ -62,9 +67,20 @@ namespace E_Invoice_API.Core.Services
         {
             var predicate = CreatePredicate(request);
 
-            var result = await _applicationRepository.GetAsync(predicate, cancellationToken);
+            var result = await _applicationRepository.GetAsync(predicate, cancellationToken,
+                include: x => x
+                .Include(x => x.User)
+                .Include(x => x.ApplicationComments)
+                .Include(x => x.ApplicationUserVotes));
 
             return result.ToList();
+        }
+
+        public async Task DeleteApplication(int applicationId, CancellationToken cancellationToken)
+        {
+            var applicationToDelete = await _applicationRepository.GetByIdAsync(applicationId, cancellationToken);
+
+            await _applicationRepository.Delete(applicationToDelete, cancellationToken);
         }
 
         private Expression<Func<Application, bool>> CreatePredicate(GetApplicationsRequest request)

@@ -11,5 +11,6 @@ namespace E_Invoice_API.Core.Interfaces.Services
         Task CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken);
         Task<Application> GetApplication(int id, CancellationToken cancellationToken);
         Task<List<Application>> GetApplications(GetApplicationsRequest request, CancellationToken cancellationToken);
+        Task DeleteApplication(int applicationId, CancellationToken cancellationToken);
     }
 }

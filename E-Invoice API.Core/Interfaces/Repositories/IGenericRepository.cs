@@ -32,5 +32,7 @@ namespace E_Invoice_API.Core.Interfaces.Repositories
 
         Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken,
             bool detachAll = false);
+
+        Task Delete(TEntity entity, CancellationToken cancellationToken);
     }
 }
