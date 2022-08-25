@@ -25,7 +25,7 @@ namespace E_Invoice_API.Data.EntityConfiguration
             builder.HasOne(x => x.Application)
                 .WithMany(x => x.ApplicationComments)
                 .HasForeignKey(x => x.ApplicationId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

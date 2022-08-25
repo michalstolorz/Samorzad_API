@@ -34,6 +34,16 @@ namespace E_Invoice_API.Data.EntityConfiguration
                 .WithMany(x => x.Applications)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.ApplicationUserVotes)
+                .WithOne(x => x.Application)
+                .HasForeignKey(x => x.ApplicationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(x => x.ApplicationComments)
+                .WithOne(x => x.Application)
+                .HasForeignKey(x => x.ApplicationId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
