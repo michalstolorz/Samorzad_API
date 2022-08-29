@@ -13,6 +13,6 @@ namespace E_Invoice_API.Core.Interfaces.Services
     {
         Task<List<ApplicationComment>> GetApplicationCommentsForApplication(int? applicationId, CancellationToken cancellationToken);
         Task DeleteApplicationComment(int applicationId, CancellationToken cancellationToken);
-        Task CreateApplicationComment(AddApplicationCommentRequest request, CancellationToken cancellationToken)l
+        Task CreateApplicationComment(AddApplicationCommentRequest request, CancellationToken cancellationToken);
     }
 }

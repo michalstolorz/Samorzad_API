@@ -1,4 +1,5 @@
 ﻿using E_Invoice_API.Core.DTO.Request;
+using E_Invoice_API.Core.DTO.Response;
 using E_Invoice_API.Core.Exceptions;
 using E_Invoice_API.Core.Helper;
 using E_Invoice_API.Core.Interfaces.Repositories;
@@ -60,6 +61,32 @@ namespace E_Invoice_API.Core.Services
             }
 
             return result.ToList();
+        }
+
+        public async Task<GetApplicationVoteSummaryResponse> GetApplicationVoteSummary(int? applicationId, CancellationToken cancellationToken)
+        {
+            var votesForApplication = await this.GetVotesForApplication(applicationId, cancellationToken);
+
+            var response = new GetApplicationVoteSummaryResponse()
+            {
+                VotesFor = 0,
+                VotesAgainst = 0,
+                VotesCount = votesForApplication.Count()
+            };
+
+            foreach (var votes in votesForApplication)
+            {
+                if (votes.Vote == true)
+                {
+                    response.VotesFor++;
+                }
+                else
+                {
+                    response.VotesAgainst++;
+                }
+            }
+
+            return response;
         }
     }
 }

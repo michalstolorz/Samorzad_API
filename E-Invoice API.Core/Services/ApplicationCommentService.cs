@@ -64,7 +64,7 @@ namespace E_Invoice_API.Core.Services
             {
                 UserId = (int)userId,
                 ApplicationId = request.ApplicationId,
-                Title = request.Title,
+                AddDateTime = _dateTimeProvider.GetDateTimeNow(),
                 CommentText = request.CommentText
             };
 

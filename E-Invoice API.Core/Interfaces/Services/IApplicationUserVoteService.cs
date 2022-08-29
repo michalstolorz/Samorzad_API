@@ -1,4 +1,5 @@
 ﻿using E_Invoice_API.Core.DTO.Request;
+using E_Invoice_API.Core.DTO.Response;
 using E_Invoice_API.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace E_Invoice_API.Core.Interfaces.Services
     {
         Task VoteForApplication(VoteForApplicationRequest request, CancellationToken cancellationToken);
         Task<List<ApplicationUserVote>> GetVotesForApplication(int? applicationId, CancellationToken cancellationToken);
+        Task<GetApplicationVoteSummaryResponse> GetApplicationVoteSummary(int? applicationId, CancellationToken cancellationToken);
     }
 }
