@@ -55,7 +55,7 @@ namespace E_Invoice_API.Controllers
         }
 
         /// <summary>
-        /// GetApplication
+        /// GetApplications
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
@@ -75,6 +75,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpDelete("deleteApplication/{applicationId}")]
+        //[Authorize]
         public async Task<IActionResult> DeleteApplication(int applicationId, CancellationToken cancellationToken)
         {
             await _applicationService.DeleteApplication(applicationId, cancellationToken);

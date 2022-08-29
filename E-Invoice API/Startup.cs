@@ -56,7 +56,8 @@ namespace E_Invoice_API
             services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(3));
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             IdentityBuilder builder = services.AddIdentityCore<User>(options =>
             {
