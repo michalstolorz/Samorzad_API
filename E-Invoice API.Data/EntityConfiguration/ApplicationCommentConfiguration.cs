@@ -16,7 +16,7 @@ namespace E_Invoice_API.Data.EntityConfiguration
             builder.Property(x => x.ApplicationId)
                 .IsRequired();
 
-            builder.Property(x => x.Title)
+            builder.Property(x => x.AddDateTime)
                 .IsRequired();
 
             builder.Property(x => x.CommentText)
@@ -26,6 +26,11 @@ namespace E_Invoice_API.Data.EntityConfiguration
                 .WithMany(x => x.ApplicationComments)
                 .HasForeignKey(x => x.ApplicationId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.User)
+                .WithMany(x => x.ApplicationComments)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
