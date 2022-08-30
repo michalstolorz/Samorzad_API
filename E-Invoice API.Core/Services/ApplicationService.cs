@@ -21,7 +21,7 @@ namespace E_Invoice_API.Core.Services
         private readonly IUserContextProvider _userContextProvider;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public ApplicationService(IApplicationRepository applicationRepository, 
+        public ApplicationService(IApplicationRepository applicationRepository,
                                   IUserContextProvider userContextProvider,
                                   IDateTimeProvider dateTimeProvider)
         {
@@ -32,15 +32,13 @@ namespace E_Invoice_API.Core.Services
 
         public async Task CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken)
         {
-            var userId = _userContextProvider.UserId;
-
             var application = new Application()
             {
-                UserId = (int)userId,
+                UserId = (int)_userContextProvider.UserId,
                 Title = request.Title,
                 Body = request.Body,
                 CreateDateTime = _dateTimeProvider.GetDateTimeNow(),
-                EndVoteDateTime = _dateTimeProvider.GetDateTimeNow().AddDays(3),
+                EndVoteDateTime = request.EndVotingDateTime,
                 ApplicationStatus = (byte)ApplicationsStatus.New
             };
 
@@ -49,7 +47,7 @@ namespace E_Invoice_API.Core.Services
 
         public async Task<Application> GetApplication(int id, CancellationToken cancellationToken)
         {
-            var result = await _applicationRepository.GetByIdAsync(id, cancellationToken, 
+            var result = await _applicationRepository.GetByIdAsync(id, cancellationToken,
                 include: x => x
                 .Include(x => x.User)
                 .Include(x => x.ApplicationComments)

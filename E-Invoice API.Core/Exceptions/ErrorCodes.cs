@@ -25,5 +25,7 @@ namespace E_Invoice_API.Core.Exceptions
         public static string ApplicationWithGivenIdNotFound => "application_with_given_user_id_not_found";
         public static string ApplicationUserVoteWithGivenIdNotFound => "application_user_votes_with_given_user_id_not_found";
         public static string ApplicationCommentWithGivenIdNotFound => "application_comment_with_given_user_id_not_found";
+        public static string ForumThreadWithGivenIdNotFound => "forum_thread_with_given_user_id_not_found";
+        public static string ForumCommentWithGivenIdNotFound => "forum_comment_with_given_user_id_not_found";
     }
 }

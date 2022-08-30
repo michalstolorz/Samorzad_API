@@ -34,7 +34,7 @@ namespace E_Invoice_API.Core.Services
         public async Task<List<ApplicationComment>> GetApplicationCommentsForApplication(int? applicationId, CancellationToken cancellationToken)
         {
             Expression<Func<ApplicationComment, bool>> predicate = x =>
-                   !applicationId.HasValue || x.Id.Equals(applicationId);
+                   !applicationId.HasValue || x.ApplicationId.Equals(applicationId);
 
             var result = await _applicationCommentRepository.GetAsync(predicate, cancellationToken,
                 include: x => x
@@ -49,9 +49,9 @@ namespace E_Invoice_API.Core.Services
             return result.ToList();
         }
 
-        public async Task DeleteApplicationComment(int applicationId, CancellationToken cancellationToken)
+        public async Task DeleteApplicationComment(int applicationCommentId, CancellationToken cancellationToken)
         {
-            var applicationCommentToDelete = await _applicationCommentRepository.GetByIdAsync(applicationId, cancellationToken);
+            var applicationCommentToDelete = await _applicationCommentRepository.GetByIdAsync(applicationCommentId, cancellationToken);
 
             await _applicationCommentRepository.Delete(applicationCommentToDelete, cancellationToken);
         }

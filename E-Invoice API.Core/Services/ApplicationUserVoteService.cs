@@ -33,11 +33,9 @@ namespace E_Invoice_API.Core.Services
 
         public async Task VoteForApplication(VoteForApplicationRequest request, CancellationToken cancellationToken)
         {
-            var usedId = _userContextProvider.UserId;
-
             var vote = new ApplicationUserVote()
             {
-                UserId = (int)usedId,
+                UserId = (int)_userContextProvider.UserId,
                 ApplicationId = request.ApplicationId, 
                 Vote = request.Vote
             };
@@ -48,7 +46,7 @@ namespace E_Invoice_API.Core.Services
         public async Task<List<ApplicationUserVote>> GetVotesForApplication(int? applicationId, CancellationToken cancellationToken)
         {
             Expression<Func<ApplicationUserVote, bool>> predicate = x =>
-                   !applicationId.HasValue || x.Id.Equals(applicationId);
+                   !applicationId.HasValue || x.ApplicationId.Equals(applicationId);
 
             var result = await _applicationUserVoteRepository.GetAsync(predicate, cancellationToken,
                 include: x => x
