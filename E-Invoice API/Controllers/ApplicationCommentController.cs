@@ -44,13 +44,13 @@ namespace E_Invoice_API.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="applicationId"></param>
+        /// <param name="applicationCommentId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpDelete("deleteApplicationComment/{applicationId}")]
-        public async Task<IActionResult> DeleteApplicationComment(int applicationId, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteApplicationComment(int applicationCommentId, CancellationToken cancellationToken)
         {
-            await _applicationCommentService.DeleteApplicationComment(applicationId, cancellationToken);
+            await _applicationCommentService.DeleteApplicationComment(applicationCommentId, cancellationToken);
 
             return Ok();
         }
