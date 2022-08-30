@@ -51,6 +51,7 @@ namespace E_Invoice_API.Core.Services
                 include: x => x
                 .Include(x => x.User)
                 .Include(x => x.ApplicationComments)
+                    .ThenInclude(x => x.User)
                 .Include(x => x.ApplicationUserVotes));
 
             if (result == null)

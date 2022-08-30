@@ -25,13 +25,6 @@ namespace E_Invoice_API.Core.Validators
                 {
                     throw new ValidatorException(ErrorCodes.InvalidParameter, $"Parameter {nameof(x.UserName)} is invalid.");
                 });
-
-            RuleFor(x => x.CurrentStatus.ToString())
-                .IsEnumName(typeof(EnumInvoiceStatus))
-                .OnAnyFailure(x =>
-                {
-                    throw new ValidatorException(ErrorCodes.InvalidParameter, $"Parameter {nameof(x.CurrentStatus)} is invalid.");
-                });
         }
     }
 }

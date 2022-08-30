@@ -37,8 +37,7 @@ namespace E_Invoice_API.Core.Services
             StreamReader str = new StreamReader(FilePath);
             string MailText = str.ReadToEnd();
             str.Close();
-            string status = ChangeInvoiceStatus(request.CurrentStatus);
-            MailText = MailText.Replace("[username]", request.UserName).Replace("[status]", status);
+            MailText = MailText.Replace("[username]", request.UserName);
 
             var email = new MimeMessage
             {
@@ -46,7 +45,7 @@ namespace E_Invoice_API.Core.Services
             };
 
             email.To.Add(MailboxAddress.Parse(request.ToEmail));
-            email.Subject = "E-Invoice service status";
+            email.Subject = "Rejestracja do systemu samorządu";
             var builder = new BodyBuilder();
             builder.HtmlBody = MailText;
             email.Body = builder.ToMessageBody();
@@ -64,21 +63,6 @@ namespace E_Invoice_API.Core.Services
             smtp.Disconnect(true);
 
             return new MailNotificationResponse() { MailSendToEmail = request.ToEmail, EmailTemplate = templateName };
-        }
-
-        private string ChangeInvoiceStatus(EnumInvoiceStatus invoiceStatus)
-        {
-            switch (invoiceStatus)
-            {
-                case EnumInvoiceStatus.Active:
-                    return "activated.";
-                case EnumInvoiceStatus.Inactive:
-                    return "deactivated.";
-                case EnumInvoiceStatus.FirstActivation:
-                    return "activated for the first time.";
-                default:
-                    throw new ServiceException(ErrorCodes.NoConversionForGivenStatus, $"No conversion for given status {invoiceStatus}");
-            }
         }
     }
 }
