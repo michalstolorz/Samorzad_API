@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using E_Invoice_API.Core.DTO.Request;
+using E_Invoice_API.Core.Interfaces.Services;
 using E_Invoice_API.Core.Validators;
 using E_Invoice_API.Data.Models;
 using FluentValidation;
@@ -18,14 +19,15 @@ namespace E_Invoice_API.Controllers
     [AllowAnonymous]
     public class RegistrationController : ControllerBase
     {
-
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly IMailService _mailService;
 
-        public RegistrationController(UserManager<User> userManager, IMapper mapper)
+        public RegistrationController(UserManager<User> userManager, IMapper mapper, IMailService mailService)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _mailService = mailService;
         }
 
         /// <summary>
@@ -49,6 +51,14 @@ namespace E_Invoice_API.Controllers
             {
                 return BadRequest(creatingUserResult.Errors);
             }
+
+            MailNotificationRequest mailRequest = new MailNotificationRequest()
+            {
+                ToEmail = request.Email,
+                UserName = request.FirstName + " " + request.LastName
+            };
+
+            await _mailService.SendEmailNotificationAsync(mailRequest, cancellationToken);
 
             return Ok(userToCreate.Id);
         }
