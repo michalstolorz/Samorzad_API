@@ -16,6 +16,7 @@ namespace E_Invoice_API.Data
         public DbSet<ApplicationUserVote> ApplicationUserVote => Set<ApplicationUserVote>();
         public DbSet<ForumComment> ForumComment => Set<ForumComment>();
         public DbSet<ForumThread> ForumThread => Set<ForumThread>();
+        public DbSet<FAQ> FAQ => Set<FAQ>();
 
         public ApplicationDbContext()
         {
