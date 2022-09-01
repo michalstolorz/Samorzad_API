@@ -55,8 +55,8 @@ namespace E_Invoice_API.Controllers
         /// <param name="forumThreadId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [HttpGet("getThreads/{forumThreadId}")]
-        public async Task<IActionResult> GetThreads(int forumThreadId, CancellationToken cancellationToken)
+        [HttpGet("getThreads")]
+        public async Task<IActionResult> GetThreads(int? forumThreadId, CancellationToken cancellationToken)
         {
             var result = await _forumThreadService.GetThreads(forumThreadId, cancellationToken);
 
