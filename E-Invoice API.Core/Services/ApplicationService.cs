@@ -37,6 +37,7 @@ namespace E_Invoice_API.Core.Services
                 UserId = (int)_userContextProvider.UserId,
                 Title = request.Title,
                 Body = request.Body,
+                Question = request.Question,
                 CreateDateTime = _dateTimeProvider.GetDateTimeNow(),
                 EndVoteDateTime = request.EndVotingDateTime,
                 ApplicationStatus = (byte)ApplicationsStatus.New
