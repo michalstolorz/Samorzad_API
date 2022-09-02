@@ -12,6 +12,7 @@ namespace E_Invoice_API.Data.Models
         public DateTime CreateDateTime { get; set; }
         public DateTime EndVoteDateTime { get; set; }
         public byte ApplicationStatus { get; set; }
+        public string Question { get; set; }
 
         public User User { get; set; }
         public virtual ICollection<ApplicationComment> ApplicationComments { get; set; }

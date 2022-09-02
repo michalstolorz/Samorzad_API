@@ -30,6 +30,9 @@ namespace E_Invoice_API.Data.EntityConfiguration
             builder.Property(x => x.ApplicationStatus)
                 .IsRequired();
 
+            builder.Property(x => x.Question)
+                .IsRequired();
+
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Applications)
                 .HasForeignKey(x => x.UserId)
