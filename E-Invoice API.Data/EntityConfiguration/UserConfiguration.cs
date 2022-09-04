@@ -23,6 +23,9 @@ namespace E_Invoice_API.Data.EntityConfiguration
                 .IsRequired()
                 .HasMaxLength(128);
 
+            builder.Property(x => x.IsAdmin)
+                .IsRequired();
+
             builder.HasMany(x => x.UserMailHistory)
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId)

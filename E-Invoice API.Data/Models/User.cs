@@ -7,6 +7,7 @@ namespace E_Invoice_API.Data.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public bool IsAdmin { get; set; }
 
         public virtual ICollection<Application> Applications { get; set; }
         public virtual ICollection<ApplicationComment> ApplicationComments { get; set; }
