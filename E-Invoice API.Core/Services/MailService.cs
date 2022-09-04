@@ -38,6 +38,8 @@ namespace E_Invoice_API.Core.Services
             string MailText = str.ReadToEnd();
             str.Close();
             MailText = MailText.Replace("[username]", request.UserName);
+            MailText = MailText.Replace("[password]", request.Password);
+            MailText = MailText.Replace("[email]", request.ToEmail);
 
             var email = new MimeMessage
             {
