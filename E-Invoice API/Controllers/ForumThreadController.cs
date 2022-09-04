@@ -42,7 +42,6 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getThread/{forumThreadId}")]
-        [Authorize]
         public async Task<IActionResult> GetThread(int forumThreadId, CancellationToken cancellationToken)
         {
             var result = await _forumThreadService.GetThread(forumThreadId, cancellationToken);
@@ -57,7 +56,6 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getThreads")]
-        [Authorize]
         public async Task<IActionResult> GetThreads(int? forumThreadId, CancellationToken cancellationToken)
         {
             var result = await _forumThreadService.GetThreads(forumThreadId, cancellationToken);

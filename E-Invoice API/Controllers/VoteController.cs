@@ -42,7 +42,6 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getVotesForApplication/{applicationId}")]
-        [Authorize]
         public async Task<IActionResult> GetVotesForApplication(int applicationId, CancellationToken cancellationToken)
         {
             var result = await _applicationUserVoteService.GetVotesForApplication(applicationId, cancellationToken);
@@ -57,7 +56,6 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getApplicationVoteSummary/{applicationId}")]
-        [Authorize]
         public async Task<IActionResult> GetApplicationVoteSummary(int applicationId, CancellationToken cancellationToken)
         {
             var result = await _applicationUserVoteService.GetApplicationVoteSummary(applicationId, cancellationToken);

@@ -64,7 +64,6 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getApplicationCommentForApplication/{applicationId}")]
-        [Authorize]
         public async Task<IActionResult> GetApplicationCommentsForApplication(int applicationId, CancellationToken cancellationToken)
         {
             var result = await _applicationCommentService.GetApplicationCommentsForApplication(applicationId, cancellationToken);

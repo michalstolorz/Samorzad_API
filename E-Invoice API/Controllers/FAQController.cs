@@ -27,7 +27,6 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getFAQs")]
-        [Authorize]
         public async Task<IActionResult> GetFAQs(int? FAQId, CancellationToken cancellationToken)
         {
             var result = await _FAQService.GetFAQs(FAQId, cancellationToken);

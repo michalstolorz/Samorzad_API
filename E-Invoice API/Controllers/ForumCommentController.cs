@@ -27,7 +27,6 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getCommentsForThread/{threadId}")]
-        [Authorize]
         public async Task<IActionResult> GetCommentsForThread(int threadId, CancellationToken cancellationToken)
         {
             var result = await _forumCommentService.GetCommentsForThread(threadId, cancellationToken);
