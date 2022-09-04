@@ -46,7 +46,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getApplication/{applicationId}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetApplication(int applicationId, CancellationToken cancellationToken)
         {
             var result = await _applicationService.GetApplication(applicationId, cancellationToken);
@@ -60,7 +60,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getApplications")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetApplications([FromQuery] GetApplicationsRequest request, CancellationToken cancellationToken)
         {
             var result = await _applicationService.GetApplications(request, cancellationToken);
@@ -75,7 +75,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpDelete("deleteApplication/{applicationId}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> DeleteApplication(int applicationId, CancellationToken cancellationToken)
         {
             await _applicationService.DeleteApplication(applicationId, cancellationToken);

@@ -27,9 +27,10 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getCommentsForThread/{threadId}")]
+        [Authorize]
         public async Task<IActionResult> GetCommentsForThread(int threadId, CancellationToken cancellationToken)
         {
-            var result = _forumCommentService.GetCommentsForThread(threadId, cancellationToken);
+            var result = await _forumCommentService.GetCommentsForThread(threadId, cancellationToken);
 
             return Ok(result);
         }
@@ -56,6 +57,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpDelete("deleteForumComment")]
+        [Authorize]
         public async Task<IActionResult> DeleteForumComment(int forumCommentId, CancellationToken cancellationToken)
         {
             await _forumCommentService.DeleteForumComment(forumCommentId, cancellationToken);
@@ -70,6 +72,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPut("updateFourmComment")]
+        [Authorize]
         public async Task<IActionResult> UpdateFourmComment(UpdateForumCommentRequest request, CancellationToken cancellationToken)
         {
             await _forumCommentService.UpdateForumComment(request, cancellationToken);

@@ -27,6 +27,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getFAQs")]
+        [Authorize]
         public async Task<IActionResult> GetFAQs(int? FAQId, CancellationToken cancellationToken)
         {
             var result = await _FAQService.GetFAQs(FAQId, cancellationToken);
@@ -41,6 +42,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("createFAQ")]
+        [Authorize]
         public async Task<IActionResult> CreateFAQ(CreateFAQRequest request, CancellationToken cancellationToken)
         {
             await _FAQService.CreateFAQ(request, cancellationToken);
@@ -55,6 +57,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpDelete("deleteFAQ")]
+        [Authorize]
         public async Task<IActionResult> DeleteFAQ(int FAQId, CancellationToken cancellationToken)
         {
             await _FAQService.DeleteFAQ(FAQId, cancellationToken);

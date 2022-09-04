@@ -6,6 +6,7 @@ using E_Invoice_API.Core.Helper;
 using E_Invoice_API.Core.Validators;
 using E_Invoice_API.Data.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,15 +29,17 @@ namespace E_Invoice_API.Controllers
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly IUserContextProvider _userContextProvider;
 
         public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IMapper mapper, IConfiguration configuration, IDateTimeProvider dateTimeProvider)
+            IMapper mapper, IConfiguration configuration, IDateTimeProvider dateTimeProvider, IUserContextProvider userContextProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _configuration = configuration;
             _dateTimeProvider = dateTimeProvider;
+            _userContextProvider = userContextProvider;
         }
 
         /// <summary>
@@ -75,6 +78,40 @@ namespace E_Invoice_API.Controllers
             }
 
             return Unauthorized();
+        }
+
+        /// <summary>
+        /// Change password
+        /// </summary>
+        /// <param name="request">Request with old password, new password and new password confirmation</param>
+        /// <param name="cancellationToken">Propagates notification that operation should be canceled</param>
+        /// <returns></returns>
+        [HttpPost("changePassword")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<IdentityError>), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ChangePasswordRequest request, CancellationToken cancellationToken)
+        {
+            var user = await _userManager.GetUserAsync(_userContextProvider.User);
+
+            if (user != null)
+            {
+                var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(result.Errors);
+                }
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
         /// <summary>

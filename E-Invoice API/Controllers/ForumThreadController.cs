@@ -42,6 +42,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getThread/{forumThreadId}")]
+        [Authorize]
         public async Task<IActionResult> GetThread(int forumThreadId, CancellationToken cancellationToken)
         {
             var result = await _forumThreadService.GetThread(forumThreadId, cancellationToken);
@@ -56,6 +57,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("getThreads")]
+        [Authorize]
         public async Task<IActionResult> GetThreads(int? forumThreadId, CancellationToken cancellationToken)
         {
             var result = await _forumThreadService.GetThreads(forumThreadId, cancellationToken);
@@ -70,6 +72,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpDelete("deleteThread")]
+        [Authorize]
         public async Task<IActionResult> DeleteThread(int forumThreadId, CancellationToken cancellationToken)
         {
             await _forumThreadService.DeleteThread(forumThreadId, cancellationToken);
@@ -84,6 +87,7 @@ namespace E_Invoice_API.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPut("updateThread")]
+        [Authorize]
         public async Task<IActionResult> UpdateThread(UpdateForumThreadRequest request, CancellationToken cancellationToken)
         {
             await _forumThreadService.UpdateThread(request, cancellationToken);

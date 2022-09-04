@@ -39,6 +39,7 @@ namespace E_Invoice_API.Controllers
         [HttpPost("registerUser")]
         [ProducesResponseType(typeof(IEnumerable<IdentityError>), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        [Authorize]
         public async Task<IActionResult> RegisterUser(RegisterRequest request, CancellationToken cancellationToken)
         {
             var validator = new RegisterRequestValidator();
@@ -55,7 +56,8 @@ namespace E_Invoice_API.Controllers
             MailNotificationRequest mailRequest = new MailNotificationRequest()
             {
                 ToEmail = request.Email,
-                UserName = request.FirstName + " " + request.LastName
+                UserName = request.FirstName + " " + request.LastName,
+                Password = request.Password
             };
 
             await _mailService.SendEmailNotificationAsync(mailRequest, cancellationToken);
