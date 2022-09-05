@@ -8,5 +8,6 @@ namespace E_Invoice_API.Core.Interfaces.Services
     public interface IMailService
     {
         Task<MailNotificationResponse> SendEmailNotificationAsync(MailNotificationRequest mailRequest, CancellationToken cancellationToken);
+        Task<MailNotificationResponse> SendMailToAdminForRegistration(SendMailToAdminForRegistrationRequest request, CancellationToken cancellationToken);
     }
 }
